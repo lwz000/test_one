@@ -1,10 +1,72 @@
 <template>
-    <p>全局</p>
+    <Top_box></Top_box>
+    <srcoll_ipt></srcoll_ipt>
+    <div class="top_body">
+        <div class="appbar">
+            <router-link to="/">首页</router-link>
+            <router-link to="/new_list">每日上新</router-link>
+            <p>|</p>
+            <a>了解必要</a>
+            <p>|</p>
+            <router-link to="/shopping_car">购物车</router-link>
+            <router-link to="/onload">请登录</router-link>
+        </div>
+    </div>
+    <router-view v-slot="{ Component }">
+        <keep-alive>
+            <component :is="Component" />
+        </keep-alive>
+    </router-view>
 </template>
 
 <script>
-export default {};
+import Top_box from "./components/top_box.vue";
+import srcoll_ipt from "./components/srcoll_ipt.vue";
+export default {
+    data() {
+        return {};
+    },
+    components: {
+        Top_box,
+        srcoll_ipt,
+    },
+};
 </script>
 
 <style>
+#app {
+    height: 2000px;
+}
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+a {
+    color: #000;
+}
+.top_body {
+    width: 100%;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+}
+.appbar {
+    display: flex;
+    width: 1080px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+.appbar > p,
+a {
+    margin-right: 30px;
+}
+.appbar > p {
+    opacity: 0.3;
+}
+.appbar > a {
+    cursor: pointer;
+}
 </style>
