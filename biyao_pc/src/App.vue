@@ -1,6 +1,7 @@
 <template>
     <Top_box></Top_box>
     <srcoll_ipt></srcoll_ipt>
+    <go_head></go_head>
     <div class="top_body">
         <div class="appbar">
             <router-link to="/">首页</router-link>
@@ -22,6 +23,7 @@
 <script>
 import Top_box from "./components/top_box.vue";
 import srcoll_ipt from "./components/srcoll_ipt.vue";
+import go_head from "./components/go_head.vue";
 export default {
     data() {
         return {};
@@ -29,13 +31,14 @@ export default {
     components: {
         Top_box,
         srcoll_ipt,
+        go_head,
     },
 };
 </script>
 
 <style>
-#app {
-    height: 2000px;
+body {
+    background: #f9f9f9;
 }
 * {
     margin: 0;
@@ -52,6 +55,7 @@ a {
 .top_body {
     width: 100%;
     box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+    background-color: #fff;
 }
 .appbar {
     display: flex;
@@ -60,7 +64,7 @@ a {
     padding-bottom: 20px;
 }
 .appbar > p,
-a {
+.appbar > a {
     margin-right: 30px;
 }
 .appbar > p {
@@ -68,5 +72,8 @@ a {
 }
 .appbar > a {
     cursor: pointer;
+}
+.appbar > a:hover {
+    color: #9687a4;
 }
 </style>

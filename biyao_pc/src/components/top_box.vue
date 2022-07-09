@@ -53,13 +53,15 @@ export default {
 <style scoped>
 .body {
     width: 100%;
+    background-color: #fff;
+    padding: 30px 0 20px;
 }
 .body > div {
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
     width: 1080px;
-    margin: 30px auto 20px;
+    margin: 0 auto;
 }
 .body > div > img {
     height: 51px;

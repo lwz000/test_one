@@ -1,6 +1,6 @@
 <template>
     <transition name="show_ipt">
-        <div v-show="flag" class="srcoll_ipt">
+        <div v-show="flag" class="scroll_ipt">
             <div>
                 <div>
                     全部分类
@@ -34,14 +34,13 @@ export default {
         };
     },
     mounted() {
-        let that = this;
-        window.onscroll = function () {
-            if (this.scrollY > 100) {
-                that.flag = true;
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 100) {
+                this.flag = true;
             } else {
-                that.flag = false;
+                this.flag = false;
             }
-        };
+        });
     },
     components: {
         input_box,
@@ -50,14 +49,15 @@ export default {
 </script>
 
 <style scoped>
-.srcoll_ipt {
+.scroll_ipt {
+    z-index: 5;
     position: fixed;
     top: 0;
     width: 100%;
     box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
     background-color: #fff;
 }
-.srcoll_ipt > div {
+.scroll_ipt > div {
     margin: 0 auto;
     width: 1080px;
     height: 60px;
@@ -72,10 +72,10 @@ export default {
 .show_ipt-enter-active {
     transition: all 0.2s;
 }
-.srcoll_ipt > div > div:nth-of-type(1):hover {
+.scroll_ipt > div > div:nth-of-type(1):hover {
     color: #000;
 }
-.srcoll_ipt > div > div:nth-of-type(1):hover i {
+.scroll_ipt > div > div:nth-of-type(1):hover i {
     background-image: url(http://static1.biyao.com/pc/common/img/master/categoryUp.png?v=biyao_c7a5f14) !important;
 }
 </style>
