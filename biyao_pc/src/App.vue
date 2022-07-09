@@ -7,7 +7,10 @@
             <router-link to="/">首页</router-link>
             <router-link to="/new_list">每日上新</router-link>
             <p>|</p>
-            <a>了解必要</a>
+            <a class="show_two"
+                >了解必要
+                <know_by></know_by>
+            </a>
             <p>|</p>
             <router-link to="/shopping_car">购物车</router-link>
             <router-link to="/onload">请登录</router-link>
@@ -18,12 +21,15 @@
             <component :is="Component" />
         </keep-alive>
     </router-view>
+    <page_base></page_base>
 </template>
 
 <script>
 import Top_box from "./components/top_box.vue";
 import srcoll_ipt from "./components/srcoll_ipt.vue";
 import go_head from "./components/go_head.vue";
+import page_base from "./components/page_base.vue";
+import know_by from "./components/know_by.vue";
 export default {
     data() {
         return {};
@@ -32,6 +38,8 @@ export default {
         Top_box,
         srcoll_ipt,
         go_head,
+        page_base,
+        know_by,
     },
 };
 </script>
@@ -62,6 +70,7 @@ a {
     width: 1080px;
     margin: 0 auto;
     padding-bottom: 20px;
+    position: relative;
 }
 .appbar > p,
 .appbar > a {
@@ -75,5 +84,8 @@ a {
 }
 .appbar > a:hover {
     color: #9687a4;
+}
+.show_two:hover div {
+    display: flex !important;
 }
 </style>

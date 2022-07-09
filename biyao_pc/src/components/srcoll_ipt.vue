@@ -14,9 +14,9 @@
                             display: inline-block;
                         "
                     ></i>
-                    <ul style="display: none">
-                        <li v-for="i in all_kind" :key="i">{{ i }}</li>
-                    </ul>
+                    <div style="position: relative; top: 20px; display: none">
+                        <type_list></type_list>
+                    </div>
                 </div>
                 <input_box></input_box>
             </div>
@@ -26,6 +26,7 @@
 
 <script>
 import input_box from "./find_ipt.vue";
+import type_list from "./type_list.vue";
 export default {
     data() {
         return {
@@ -44,6 +45,7 @@ export default {
     },
     components: {
         input_box,
+        type_list,
     },
 };
 </script>
@@ -77,5 +79,8 @@ export default {
 }
 .scroll_ipt > div > div:nth-of-type(1):hover i {
     background-image: url(http://static1.biyao.com/pc/common/img/master/categoryUp.png?v=biyao_c7a5f14) !important;
+}
+.scroll_ipt > div > div:nth-of-type(1):hover div {
+    display: block !important;
 }
 </style>
