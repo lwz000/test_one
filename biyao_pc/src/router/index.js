@@ -3,6 +3,8 @@ import Home from '../views/home.vue'
 import New from '../views/new.vue'
 import Onload from '../views/onload.vue'
 import Shopping_car from '../views/shopping_car.vue'
+import List from '../views/list.vue'
+import Main from '../views/main.vue'
 
 const routes = [
   {
@@ -18,6 +20,12 @@ const routes = [
   },{
     path:'/onload',
     component:Onload
+  },{
+    path:'/category',
+    component:List
+  },{
+    path:'/main',
+    component:Main
   }
 ]
 

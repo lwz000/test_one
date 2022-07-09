@@ -2,7 +2,7 @@
     <ul>
         <li v-for="i in arr" :key="i">
             <span v-for="(item, index) in i" :key="item">
-                <a>{{ item }}</a>
+                <a href="#/category">{{ item }}</a>
                 <i>{{ index == i.length - 1 ? "" : "/" }}</i>
             </span>
         </li>

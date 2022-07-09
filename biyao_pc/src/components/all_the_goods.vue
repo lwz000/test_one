@@ -3,7 +3,11 @@
         <p>热销排行</p>
     </div>
     <ul class="all" ref="all_list">
-        <li v-for="i in arr" :key="i">
+        <li
+            v-for="i in arr"
+            :key="i"
+            @click="this.$router.push(`/main?id=${i.Id}`)"
+        >
             <img
                 src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202108%2F03%2F20210803221325_100a1.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659930434&t=d3a13aa969d6e1090254fab7bb0ebf86"
                 :data-src="i.imageUrl"
@@ -57,6 +61,9 @@ export default {
         this.get_list();
         let that = this;
         window.onscroll = function () {
+            if (that.$refs.all_list == null) {
+                return;
+            }
             if (
                 this.scrollY >
                     that.$refs.all_list.offsetTop +

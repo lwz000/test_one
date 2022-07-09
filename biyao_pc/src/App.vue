@@ -16,11 +16,7 @@
             <router-link to="/onload">请登录</router-link>
         </div>
     </div>
-    <router-view v-slot="{ Component }">
-        <keep-alive>
-            <component :is="Component" />
-        </keep-alive>
-    </router-view>
+    <router-view> </router-view>
     <page_base></page_base>
 </template>
 

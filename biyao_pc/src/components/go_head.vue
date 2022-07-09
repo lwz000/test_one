@@ -26,14 +26,13 @@ export default {
         },
     },
     mounted() {
-        let that = this;
-        window.onscroll = function () {
-            if (this.scrollY > 100) {
-                that.flag = true;
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 100) {
+                this.flag = true;
             } else {
-                that.flag = false;
+                this.flag = false;
             }
-        };
+        });
     },
 };
 </script>

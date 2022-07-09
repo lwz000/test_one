@@ -14,7 +14,14 @@
                             display: inline-block;
                         "
                     ></i>
-                    <div style="position: relative; top: 20px; display: none">
+                    <div
+                        style="
+                            position: relative;
+                            top: 30px;
+                            left: -84px;
+                            display: none;
+                        "
+                    >
                         <type_list></type_list>
                     </div>
                 </div>
@@ -73,6 +80,11 @@ export default {
 }
 .show_ipt-enter-active {
     transition: all 0.2s;
+}
+.scroll_ipt > div > div:nth-of-type(1) {
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 .scroll_ipt > div > div:nth-of-type(1):hover {
     color: #000;
