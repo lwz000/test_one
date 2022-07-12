@@ -43,6 +43,14 @@ export default {
     },
     mounted() {
         window.addEventListener("scroll", () => {
+            if (
+                this.$route.path == "/main" ||
+                this.$route.path == "/main/say"
+            ) {
+                this.flag = false;
+                return;
+            }
+
             if (window.scrollY > 100) {
                 this.flag = true;
             } else {

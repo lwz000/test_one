@@ -9,20 +9,27 @@ export default {
     data() {
         return {
             flag: false,
+            can: true,
         };
     },
     methods: {
         go_top() {
-            let n_height = document.documentElement.scrollTop;
-            let v = n_height / 30;
-            let zhen = 0;
-            let timer = setInterval(() => {
-                document.documentElement.scrollTop -= v;
-                zhen++;
-                if (zhen >= 30) {
-                    clearInterval(timer);
-                }
-            }, 16.7);
+            if (this.can) {
+                this.can = false;
+                setTimeout(() => {
+                    this.can = true;
+                }, 1000);
+                let n_height = document.documentElement.scrollTop;
+                let v = n_height / 30;
+                let zhen = 0;
+                let timer = setInterval(() => {
+                    document.documentElement.scrollTop -= v;
+                    zhen++;
+                    if (zhen >= 30) {
+                        clearInterval(timer);
+                    }
+                }, 16.7);
+            }
         },
     },
     mounted() {

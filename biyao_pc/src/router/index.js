@@ -5,6 +5,10 @@ import Onload from '../views/onload.vue'
 import Shopping_car from '../views/shopping_car.vue'
 import List from '../views/list.vue'
 import Main from '../views/main.vue'
+import Shop from '../router/shop.vue'
+import Say from '../router/say.vue'
+import SupplierList from '../views/supplier_list.vue'
+import Search from '../views/search.vue'
 
 const routes = [
   {
@@ -25,7 +29,21 @@ const routes = [
     component:List
   },{
     path:'/main',
-    component:Main
+    name:'main',
+    component:Main,
+    children:[{
+      path:'',
+      component:Shop
+    },{
+      path:'say',
+      component:Say
+    }]
+  },{
+    path:'/supplierList',
+    component:SupplierList
+  },{
+    path:'/search',
+    component:Search
   }
 ]
 

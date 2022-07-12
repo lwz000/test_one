@@ -8,7 +8,9 @@
             <div class="find_box">
                 <find_ipt></find_ipt>
                 <ul>
-                    <li v-for="i in hot_find" :key="i">{{ i }}</li>
+                    <li v-for="i in hot_find" :key="i" @click="to_find(i)">
+                        {{ i }}
+                    </li>
                 </ul>
             </div>
         </div>
@@ -34,7 +36,16 @@ export default {
             ],
         };
     },
-    methods: {},
+    methods: {
+        to_find(i) {
+            this.$router.push({
+                path: "/search",
+                query: {
+                    word: i,
+                },
+            });
+        },
+    },
     created() {
         //     fetch(
         //         "http://www.biyao.com/classify/hotWord?callback=jQuery18309375303940717574_1657284969608&_=1657284969733"
@@ -73,5 +84,6 @@ ul > li {
     color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
     margin-right: 7px;
+    cursor: pointer;
 }
 </style>

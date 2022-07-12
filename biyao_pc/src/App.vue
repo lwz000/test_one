@@ -13,7 +13,10 @@
             </a>
             <p>|</p>
             <router-link to="/shopping_car">购物车</router-link>
-            <router-link to="/onload">请登录</router-link>
+            <router-link to="/onload">{{
+                !$store.state.id ? "请登录" : $store.state.id
+            }}</router-link>
+            <span v-show="$store.state.id" @click="outline()">退出登录</span>
         </div>
     </div>
     <router-view> </router-view>
@@ -26,9 +29,12 @@ import srcoll_ipt from "./components/srcoll_ipt.vue";
 import go_head from "./components/go_head.vue";
 import page_base from "./components/page_base.vue";
 import know_by from "./components/know_by.vue";
+import { locStub } from "@vue/compiler-core";
 export default {
     data() {
-        return {};
+        return {
+            msg: "",
+        };
     },
     components: {
         Top_box,
@@ -36,6 +42,22 @@ export default {
         go_head,
         page_base,
         know_by,
+    },
+    methods: {
+        outline() {
+            this.msg = "请登录";
+            this.$store.commit("change_id", "");
+            localStorage.setItem("username", "");
+            localStorage.setItem("token", "");
+            this.$router.push("/");
+        },
+    },
+    created() {
+        if (!localStorage.getItem("token")) {
+            this.msg = "请登录";
+        } else {
+            this.msg = localStorage.getItem("username");
+        }
     },
 };
 </script>

@@ -1,9 +1,10 @@
 <template>
     <div>
-        <input type="text" placeholder="请输入要搜索的商品" />
+        <input type="text" placeholder="请输入要搜索的商品" v-model="text" />
         <img
             src="http://static3.biyao.com/pc/common/img/master/search.png?v=biyao_2e92562"
             alt=""
+            @click="to_find()"
         />
     </div>
 </template>
@@ -11,9 +12,25 @@
 <script>
 export default {
     data() {
-        return {};
+        return {
+            text: "",
+        };
     },
-    methods: {},
+    methods: {
+        to_find() {
+            if (this.text == "") {
+                alert("请输入搜索内容");
+                return;
+            }
+
+            this.$router.push({
+                path: "/search",
+                query: {
+                    word: this.text,
+                },
+            });
+        },
+    },
 };
 </script>
 
