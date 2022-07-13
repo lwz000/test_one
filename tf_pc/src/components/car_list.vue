@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <li v-for="i in list.content" :key="i">
+        <li v-for="i in list" :key="i">
             <i :style="color(i.saleType)">{{ tip(i.saleType) }}</i>
             <img :src="i.cover" alt="" />
             <p>{{ i.carName }}</p>
@@ -12,46 +12,55 @@
             <p>{{ i.currentPrice }}万</p>
         </li>
     </ul>
+    <!-- <div v-show="list.length == 0" class="no_list">
+        <img src="https://www.tf2sc.cn/static/img/zanwu.png" alt="" />
+        <p>找不到内容，换个关键词试试吧~</p>
+    </div> -->
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onUpdated, watch } from "vue";
 let list = ref([]);
 let msg = defineProps([
     //各种参数
-    "page",
-    "carSeries",
-    "carModel",
-    "displacements_s",
-    "displacements _b",
-    "driveType",
-    "emissionStandardType",
-    "fuelType",
-    "gearboxType",
-    "mileages_s",
-    "mileages_b",
-    "seat",
-    "sort",
-    "saleType",
-    "carName",
+    "page", //页数
+    "carSeries", //品牌车系
+    "carModel", //车型
+    "currentPrices", //价格
+    "displacements", //排量
+    "driveType", //驱动类型
+    "emissionStandardType", //排放
+    "fuelType", //燃油类型
+    "gearboxType", //变速箱
+    "mileages", //里程
+    "seat", //座位数
+    "sort", //排序
+    "saleType", //类型
+    "carName", //车名
 ]);
-
-let ajax = ""; //拼接所有参数
-for (const i in msg) {
-    if (msg[i]) {
-        ajax += i + "=" + msg[i] + "&";
+let getlist = () => {
+    let ajax = ""; //拼接所有参数
+    for (const i in msg) {
+        if (msg[i] && i != "all_condition") {
+            if (msg["seat"] == 7) {
+                ajax += "seatGe=7";
+                continue;
+            }
+            ajax += i + "=" + msg[i] + "&";
+        }
     }
-}
 
-fetch(`https://api.tf2sc.cn/api/tfcar/car/list?${ajax}`, {
-    //请求数据
-    headers: { PlatformType: "h5" },
-})
-    .then((r) => r.json())
-    .then((res) => {
-        list.value = res.data;
-    });
+    fetch(`https://api.tf2sc.cn/api/tfcar/car/list?${ajax}`, {
+        //请求数据
+        headers: { PlatformType: "h5" },
+    })
+        .then((r) => r.json())
+        .then((res) => {
+            list.value = res.data.content;
+        });
+};
 
+getlist();
 let date = (x) => {
     //日期
     let num = new Date(x);
@@ -106,6 +115,17 @@ let color = (x) => {
     }
     return text;
 };
+
+watch(
+    msg,
+    (nv, lv) => {
+        getlist();
+    },
+    {
+        immediate: true,
+        deep: true,
+    }
+);
 </script>
 
 <style scoped>
@@ -178,5 +198,17 @@ ul i {
     width: 64px;
     height: 20px;
     border-radius: 0px 4px 0px 0px;
+}
+.no_list {
+    width: 1200px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+}
+.no_list > img {
+    width: 282px;
+    margin-bottom: 30px;
 }
 </style>
