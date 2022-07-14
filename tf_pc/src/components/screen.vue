@@ -1,7 +1,14 @@
 <template>
     <div class="find_ipt">
-        <input type="text" placeholder="搜索品牌、车型" />
-        <button>搜索</button>
+        <input type="text" placeholder="搜索品牌、车型" v-model="find_text" />
+        <button
+            @click="
+                all_condition.push({ 关键字: find_text });
+                find = find_text;
+            "
+        >
+            搜索
+        </button>
     </div>
     <div class="screen_body">
         <span
@@ -141,7 +148,7 @@
         </ul>
     </div>
 
-    <div class="condition_box" v-show="all_condition.length != 0">
+    <div class="condition_box" v-show="show_box">
         <p>当前筛选：</p>
         <ul>
             <template v-for="(i, index) in all_condition" :key="i">
@@ -243,6 +250,7 @@
         :driveType="driveType_text"
         :fuelType="fuelType_text"
         :seat="seat_text"
+        :carName="find"
     ></car_list>
 </template>
 
@@ -258,6 +266,7 @@ let all_type = ref({}); //类型
 let show = ref(false);
 let all_condition = ref([]); //筛选条件
 let more_box = ref([]);
+let show_box = ref(false);
 
 //选中
 let carseries_in = ref(""); //品牌选中
@@ -277,6 +286,8 @@ let gearboxType_text = ref();
 let driveType_text = ref();
 let fuelType_text = ref();
 let seat_text = ref();
+let find_text = ref();
+let find = ref();
 
 //全部类型
 fetch("https://api.tf2sc.cn/api/tfcar/car/brand300", {
@@ -294,6 +305,7 @@ fetch("https://api.tf2sc.cn/api/tfcar/car/brand300", {
                 i.brand.split("-")[1].trim() + "-" + i.id
             );
         }
+        console.log(all_type.value);
     });
 //品牌
 fetch("https://api.tf2sc.cn/api/tfcar/car/customSeries", {
@@ -347,6 +359,52 @@ let get_series = () => {
         });
 };
 get_series();
+
+// let loc_in = localStorage.getItem("all_condition"); //获取本地数据
+// if (loc_in) {
+//     for (const i of loc_in.split(";")) {
+//         if (i) {
+//             all_condition.value[i.split("&")[0]] = i.split("&")[1];
+
+//             switch (i.split(':')[0]) {
+//                 case '品牌':
+//                     carseries_in.value = i.split('&')[1]
+//                     break;
+//                 case '车系':
+//                     brand_in.value = i.split('&')[1]
+//                     break;
+//                 case '车型':
+//                     model_in.value = i.split('&')[1]
+//                     break;
+//                 case '价格':
+//                     pic_in.value = i.split('&')[1]
+//                     break;
+//                 // case '排量':
+
+//                 //     break;
+//                 // case '排放':
+
+//                 //     break;
+//                 // case '里程':
+
+//                 //     break;
+//                 // case '变速箱':
+
+//                 //     break;
+//                 // case '驱动类型':
+
+//                 //     break;
+//                 // case '燃油类型':
+
+//                 //     break;
+//                 // case '座位数':
+
+//                 //     break;
+//             }
+
+//         }
+//     }
+// }
 
 //品牌点击
 let change_carseries = (x, y) => {
@@ -571,6 +629,23 @@ watch(all_condition.value, (nv, lv) => {
             }
         }
     }
+
+    if (nv.length == 1) {
+        if (Object.keys(nv[0])[0] == "品牌") {
+            show_box.value = false;
+            find.value = "";
+            find_text.value = "";
+        } else {
+            show_box.value = true;
+        }
+    } else if (nv.length > 1) {
+        show_box.value = true;
+    } else {
+        show_box.value = false;
+        find.value = "";
+        find_text.value = "";
+    }
+
     let n1 = 0;
     let n2 = 0;
     let n3 = 0;
@@ -603,6 +678,18 @@ watch(all_condition.value, (nv, lv) => {
     if (n4 == 0) {
         pic_in.value = "";
     }
+
+    // let loc_text = "";
+    // for (const i of all_condition.value) {
+    //     //存值
+    //     if (Object.keys(i)[0] == "品牌") {
+    //         loc_text += `品牌&${carseries_in.value}`;
+    //     } else if (Object.keys(i)[0] == "车系") {
+    //         loc_text += `车系&` + brand_in.value;
+    //     } else {
+    //         loc_text += `${Object.keys(i)[0]}&${i[Object.keys(i)[0]]};`;
+    //     }
+    // }
 
     pic_text.value = "";
     if (pic_in.value) {

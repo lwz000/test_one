@@ -48,7 +48,7 @@
     </div>
     <div class="title">
         <p>二手车</p>
-        <span
+        <span @click="router.push('/used_car')"
             >查看更多
             <img
                 src="https://www.tf2sc.cn/static/img/icon_%E6%9B%B4%E5%A4%9A.png"
@@ -59,7 +59,7 @@
     <car_list :page="'1'"></car_list>
     <div class="title">
         <p>新车</p>
-        <span
+        <span @click="router.push('/new_car')"
             >查看更多
             <img
                 src="https://www.tf2sc.cn/static/img/icon_%E6%9B%B4%E5%A4%9A.png"
@@ -69,7 +69,7 @@
     </div>
     <div class="title">
         <p>新闻资讯</p>
-        <span
+        <span @click="router.push('/news')"
             >查看更多
             <img
                 src="https://www.tf2sc.cn/static/img/icon_%E6%9B%B4%E5%A4%9A.png"
@@ -82,10 +82,12 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import car_list from "../components/car_list.vue";
 import new_list from "../components/new_list.vue";
 
 let buy_type = ref([]); //买车类型
+let router = useRouter();
 
 fetch("https://api.tf2sc.cn/api/tfcar/car/convenient", {
     headers: { PlatformType: "h5" },

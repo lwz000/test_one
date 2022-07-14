@@ -52,7 +52,7 @@ import ez_index from "./components/ez_index.vue";
 body {
     padding-top: 70px;
     font-size: 16px;
-    background-color: #fafafa;
+    background-color: rgba(248, 248, 248, 0.5);
 }
 .all {
     width: 100vw;

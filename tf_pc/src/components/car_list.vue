@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <li v-for="i in list" :key="i">
+        <li v-for="i in list" :key="i" @click="to_main(i.ind)">
             <i :style="color(i.saleType)">{{ tip(i.saleType) }}</i>
             <img :src="i.cover" alt="" />
             <p>{{ i.carName }}</p>
@@ -12,18 +12,38 @@
             <p>{{ i.currentPrice }}万</p>
         </li>
     </ul>
-    <!-- <div v-show="list.length == 0" class="no_list">
+    <div v-if="list.length == 0" class="no_list">
         <img src="https://www.tf2sc.cn/static/img/zanwu.png" alt="" />
         <p>找不到内容，换个关键词试试吧~</p>
-    </div> -->
+    </div>
+    <div
+        v-show="page"
+        style="
+            width: 1200px;
+            margin: 0 auto 40px;
+            display: flex;
+            justify-content: center;
+        "
+    >
+        <el-pagination
+            background
+            layout="prev, pager, next"
+            :page-size="20"
+            :total="all_page"
+            v-model:current-page="page"
+        />
+    </div>
 </template>
 
 <script setup>
 import { ref, onUpdated, watch } from "vue";
+import { useRouter, onBeforeRouteUpdate } from "vue-router";
+let router = useRouter();
 let list = ref([]);
+let all_page = ref();
+let page = ref(1);
 let msg = defineProps([
     //各种参数
-    "page", //页数
     "carSeries", //品牌车系
     "carModel", //车型
     "currentPrices", //价格
@@ -40,6 +60,7 @@ let msg = defineProps([
 ]);
 let getlist = () => {
     let ajax = ""; //拼接所有参数
+    page.value = 1;
     for (const i in msg) {
         if (msg[i] && i != "all_condition") {
             if (msg["seat"] == 7) {
@@ -57,6 +78,7 @@ let getlist = () => {
         .then((r) => r.json())
         .then((res) => {
             list.value = res.data.content;
+            all_page.value = res.data.totalElements;
         });
 };
 
@@ -116,6 +138,10 @@ let color = (x) => {
     return text;
 };
 
+let to_main = (x) => {
+    router.push(`/main?id=${x}`);
+};
+
 watch(
     msg,
     (nv, lv) => {
@@ -126,6 +152,29 @@ watch(
         deep: true,
     }
 );
+
+watch(page, (nv, lv) => {
+    let ajax = "page=" + page.value + "&";
+    for (const i in msg) {
+        if (msg[i] && i != "all_condition") {
+            if (msg["seat"] == 7) {
+                ajax += "seatGe=7";
+                continue;
+            }
+            ajax += i + "=" + msg[i] + "&";
+        }
+    }
+
+    fetch(`https://api.tf2sc.cn/api/tfcar/car/list?${ajax}`, {
+        //请求数据
+        headers: { PlatformType: "h5" },
+    })
+        .then((r) => r.json())
+        .then((res) => {
+            console.log(res);
+            list.value = res.data.content;
+        });
+});
 </script>
 
 <style scoped>

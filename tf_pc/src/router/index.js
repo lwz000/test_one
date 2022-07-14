@@ -6,6 +6,7 @@ import Sell_car from "../views/sell_car.vue";
 import Finance from "../views/finance.vue";
 import Helper from "../views/helper.vue"
 import News from '../views/news.vue'
+import Main from '../views/main.vue'
 
 const routes = [
   {
@@ -29,6 +30,9 @@ const routes = [
   },{
     path:'/news',
     component:News
+  },{
+    path:'/main',
+    component:Main
   }
 ]
 
