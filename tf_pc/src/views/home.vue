@@ -14,7 +14,11 @@
                 <ul>
                     <li>我要买车</li>
                     <li v-for="i in buy_type" :key="i">
-                        <p v-for="item in i" :key="item">
+                        <p
+                            v-for="item in i"
+                            :key="item"
+                            @click="router.push('/used_car')"
+                        >
                             <img :src="item.logo" alt="" v-if="item.logo" />
                             <span>{{ item.label }}</span>
                         </p>
