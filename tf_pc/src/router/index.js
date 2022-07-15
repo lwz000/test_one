@@ -8,6 +8,11 @@ import Helper from "../views/helper.vue"
 import News from '../views/news.vue'
 import Main from '../views/main.vue'
 
+import Know from './know.vue'
+import After_sell from './after_sell.vue'
+import Change_car from './change_car.vue'
+import Insure from './insure.vue'
+
 const routes = [
   {
     path: '/',
@@ -26,7 +31,22 @@ const routes = [
     component:Finance
   },{
     path:'/helper',
-    component:Helper
+    component:Helper,
+    children:[
+      {
+        path:'',
+        component:Know
+      },{
+        path:'after_sell',
+        component:After_sell
+      },{
+        path:'change_car',
+        component:Change_car
+      },{
+        path:'insure',
+        component:Insure
+      }
+    ]
   },{
     path:'/news',
     component:News

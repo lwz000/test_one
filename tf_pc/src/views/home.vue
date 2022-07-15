@@ -4,7 +4,7 @@
             <span>腾发二手车</span>
             <div>
                 <input type="text" placeholder="搜索品牌、车型" />
-                <button>搜索</button>
+                <button @click="router.push('/used_car')">搜索</button>
             </div>
             <img
                 src="https://www.tf2sc.cn/static/img/%E5%8D%96%E8%BD%A6%E7%9A%84%E5%A5%BD%E5%A4%84.png"
@@ -24,7 +24,9 @@
                     <li>我要卖车</li>
                     <li>
                         <input type="text" placeholder="请输入手机号" />
-                        <button>立刻估值</button>
+                        <button @click="router.push('/sell_car')">
+                            立刻估值
+                        </button>
                     </li>
                     <li>
                         <p>
